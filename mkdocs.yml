@@ -1,0 +1,7 @@
+site_name: Gkernel framework
+repo_url: https://github.com/bassbeaver/gkernel
+nav:
+  - Docs:
+    - Introduction: 'index.md'
+    - Main concepts: 'main-concepts.md'
+  - About: 'about.md'
