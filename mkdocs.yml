@@ -3,5 +3,11 @@ repo_url: https://github.com/bassbeaver/gkernel
 nav:
   - Docs:
     - Introduction: 'index.md'
-    - Main concepts: 'main-concepts.md'
+    - Main concepts: '1_main-concepts.md'
+    - Configuration: '2_configuration.md'
+    - Services and DI container: '3_services_and_di_container.md'
+    - Request and Response: '4_request_and_response.md'
+    - Controllers: '5_routing_and_controllers.md'
+    - Events and Listeners: '6_events_and_listeners.md'
   - About: 'about.md'
+theme: readthedocs

@@ -2,7 +2,7 @@
 
 Gkernel framework determines next main entities for request processing:
 
-* Request - represents an HTTP request received by a server. Gkernel uses standard "net/http" Request type.
+* Request - represents an HTTP request received by a server. Gkernel uses standard [net/http](https://golang.org/pkg/net/http/) Request type.
 * Response - represents result of request processing, that should be sent to user. 
 * Controller - function that receive request object and have to return response object.
 * Event - some event that happened during request processing (or during life of the whole application).
@@ -10,9 +10,16 @@ This events are dispatched by framework.
 * Event listener - function that receive and process events (dispatched by framework) and can affect request processing flow.
 
 
+### Configuration
+
+Gkernel uses yaml file to describe application configuration. Path to this file should be passed to Kernel constructor.
+Config file describes application parameters (like port to listen on, environment etc.), routes, services and event listeners.
+
+
 ### Request lifecycle
 
 Request processing cycle (also it can be called request lifecycle) has next main parts:
+
 1. Framework receives request and performs routing to determine controller for request processing.
 If required route not exists - framework creates `NotFoundHttpError` and dispatches `RuntimeError` event.
 2. `RequestReceived` event is being dispatched. If listeners for that event returned response object - framework goes to p.5.
