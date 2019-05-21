@@ -127,6 +127,7 @@ IndexController:privatePage:
     - {event: kernelEvent.RequestReceived, listener: "AuthService:RedirectToLoginIfNotAuthenticated", priority: 41}
 ``` 
 Where:
+
 * `IndexController:privatePage` - route name
 * `url` - url or the route, url can contain parameters: `"/some-page/:param1"`
 * `methods` - list of HTTP methods allowed for this route

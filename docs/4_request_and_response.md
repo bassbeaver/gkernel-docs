@@ -35,7 +35,7 @@ BytesResponse has next methods:
 * `func (r *basicResponse) HeaderSet(key, value string)` - intended to simplify adding new headers to response.
 You can call 
 ```
-r.GetHeaders().Set(MyHeader", "my header value")
+r.GetHeaders().Set("MyHeader", "my header value")
 ``` 
 or just 
 ```
@@ -107,7 +107,9 @@ registerPprofRoute("pprof:heap", "/debug/pprof/heap", pprof.Index)
 Represents response that should be sent to useragent to perform redirect.
  
 To create new BytesResponse you can use factory method:
-```NewRedirectResponse(request *http.Request, url string, httpStatus int) *RedirectResponse```
+```
+NewRedirectResponse(request *http.Request, url string, httpStatus int) *RedirectResponse
+```
 Where:
 
 * `request` is current Request object
@@ -129,8 +131,10 @@ ViewResponse has next methods:
 * `func (r *ViewResponse) SetData(data interface{})` - sets template's data (variables used for templates rendering)
 * `func (r *ViewResponse) SetTemplate(tpl *template.Template)`- is used with Gkernel and usually you do not need this method.
 
-In most cases, to return rendered template (view) as a Response you will be enough to use 
-`NewViewResponse(templateName string) *ViewResponse` factory method. 
+In most cases, to return rendered template (view) as a Response you will be enough to use factory method: 
+```
+NewViewResponse(templateName string) *ViewResponse
+``` 
 Example (from [bassbeaver/gkernel-skeleton IndexController](https://github.com/bassbeaver/gkernel-skeleton/blob/master/controller/IndexController.go#L15)):
 
 ```go
@@ -177,6 +181,7 @@ Where:
 Represents json encoded response.
 
 JsonResponse has next fields:
+
 * `Body interface{}` - response value, that should be json encoded and sent to user 
 
 JsonResponse has next methods:
@@ -187,18 +192,29 @@ JsonResponse has next methods:
 * `func (r *basicResponse) SetHttpStatus(status int)` - sets response's HTTP status. 
 * `func (r *BytesResponse) GetBodyBytes() *bytes.Buffer` - returns a pointer to the Body bytes buffer
 
-To create new JsonResponse you can use factory method `NewJsonResponse()`, also this factory method sets 
+To create new JsonResponse you can use factory method: 
+```
+NewJsonResponse() *JsonResponse
+```
+this factory method sets 
 `Content-Type` header to `application/json` for created Response object.
 
 Also, Gkernel provides factory method to create [Json Api](https://jsonapi.org/) Response: 
-`NewJsonApiResponse() *JsonResponse`. It is similar to `NewJsonResponse()`except that sets `Content-Type` header to `application/json`.
+```
+NewJsonApiResponse() *JsonResponse
+``` 
+It is similar to `NewJsonResponse()` except that sets `Content-Type` header to `application/json`.
 
 &nbsp;
 ##### WebsocketUpgradeResponse
 
 Represents Response used to upgrade protocol to WebSocket.
 
-To create new WebsocketUpgradeResponse you can use factory method `NewWebsocketUpgradeResponse(upgrader *websocket.Upgrader, controller WebSocketController)`
+To create new WebsocketUpgradeResponse you can use factory method 
+```
+NewWebsocketUpgradeResponse(upgrader *websocket.Upgrader, controller WebSocketController) *WebsocketUpgradeResponse
+```
+
 Where:
 
 * `upgrader` - instance of `gorilla/websocket.Upgrader`

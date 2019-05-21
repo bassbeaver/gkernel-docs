@@ -1,6 +1,11 @@
 ### Basic entities
 
-Gkernel framework determines next main entities for request processing:
+Main idea of Gkernel framework is to organize request processing flow which is:
+ 
+* controlled by events
+* processed by services, and services are managed by Service Container
+
+Framework determines next main entities for request processing:
 
 * Request - represents an HTTP request received by a server. Gkernel uses standard [net/http](https://golang.org/pkg/net/http/) Request type.
 * Response - represents result of request processing, that should be sent to user. 

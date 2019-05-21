@@ -47,6 +47,7 @@ Is being dispatched during application shut down process. Can be used to close D
 &nbsp;
 
 Application level events has next methods:
+
 * `StopPropagation()` - to stop Event's propagation inside Listeners Chain	
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetContainer() *gioc.Container` - returns DI Container object used by Application.
@@ -63,6 +64,7 @@ Can be used to read user's session from the storage, for authentification & auth
 
 
 `RequestReceived` Event has next methods: 
+
 * `StopPropagation()` - to stop Event's propagation inside Listeners Chain	
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
@@ -70,10 +72,12 @@ Can be used to read user's session from the storage, for authentification & auth
 * `GetResponse() response.Response` - gets Response object provided to this Event. Initially `RequestReceived` Event has no Response (method returns `nil`)
 * `SetResponse(responseObj response.Response)` - stops Event's propagation and sends provided Response to user. 
 
+&nbsp;
 ###### RequestProcessed
 Is being dispatched after Controller has processed Request. Contains Response object returned from Controller.
 
 `RequestProcessed` Event has next methods: 
+
 * `StopPropagation()` - to stop Event's propagation inside Listeners Chain	
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
@@ -81,31 +85,35 @@ Is being dispatched after Controller has processed Request. Contains Response ob
 * `GetResponse() response.Response` - gets Response object provided to this Event. Initially this will be Response returned by Controller
 * `SetResponse(responseObj response.Response)` - sets Response object. Notice: unlike `RequestReceived.SetResponse()` this method does not stop Event's propagation
 
- 
+&nbsp;
 ###### ResponseBeforeSend
 Is being dispatched after `RequestProcessed` Event was processed. Can modify Response but can not replace it with new object.
 
 `ResponseBeforeSend` Event has next methods: 
+
 * `StopPropagation()` - to stop Event's propagation inside Listeners Chain	
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
 * `GetResponse() response.Response` - gets Response object
 
+&nbsp;
 ###### RequestTermination
 Is being dispatched after Response was sent to user. Can be used for logs exporting and others after-request activities.
 
 `RequestTermination` Event has next methods:
+
 * `StopPropagation()` - to stop Event's propagation inside Listeners Chain	
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
 * `GetResponse() response.Response` - gets Response object
 
-
+&nbsp;
 ###### RuntimeError
-In case of (panic)[https://blog.golang.org/defer-panic-and-recover] during Request processing 
+In case of [panic](https://blog.golang.org/defer-panic-and-recover) during Request processing 
 Gkernel automatically recovers that panic, creates `RuntimeError` object to represent that panic and dispatches RuntimeError.
 
 `RuntimeError` Event has next methods:
+
 * `StopPropagation()` - to stop Event's propagation inside Listeners Chain	
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
