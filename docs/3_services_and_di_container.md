@@ -129,7 +129,7 @@ func RegisterAuthService(kernelObj *gkernel.Kernel) {
 Finally, lets register Services in Container:
 ```go
 
-kernelObj, kernelError := gkernel.NewKernel("/path/to/config.yaml")
+kernelObj, kernelError := gkernel.NewKernel("/path/to/config")
 if nil != kernelError {
     panic(kernelError)
 }

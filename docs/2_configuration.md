@@ -10,7 +10,7 @@ import (
 ...
 
 var configPath string
-configPath = "/path/to/config.yaml"
+configPath = "/path/to/config"
 kernelObj, kernelError := gkernel.NewKernel(configPath)
 ``` 
 
@@ -44,7 +44,7 @@ if "" == *configPathFlag {
         fmt.Println("Failed to determine path to own binary file")
         panic(curBinDirError)
     }
-    configPath = curBinDir + "/config.yaml"
+    configPath = curBinDir + "/config"
 } else {
     configPath = *configPathFlag
 }
@@ -54,12 +54,12 @@ if nil != kernelError {
     panic(kernelError)
 }
 ```
-Code above searches for program argument `config` passed to application during its start, if no argument found it tries to found `config.yaml` file.
-in its working directory and panics if failed to locate config file path.
+Code above searches for program argument `config` passed to application during its start, if no argument found it tries 
+to find `config` directory in its working directory and panics if failed to locate config files path.
 
-For example, if you build you app binary to `/etc/gkernel-app` and put your config file to `/configs/gkernel-app-config.yaml`  it could be like:
+For example, if you build you app binary to `/etc/gkernel-app` and put your config files to `/configs/gkernel-app-config`  it could be like:
 ```bash
-/etc/gkernel-app -config /configs/gkernel-app-config.yaml
+/etc/gkernel-app -config /configs/gkernel-app-config
 ```
 
 ### Configuration file overview

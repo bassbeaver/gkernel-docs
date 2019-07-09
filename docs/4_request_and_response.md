@@ -73,7 +73,7 @@ import (
 
 ...
 
-kernelObj, kernelError := gkernel.NewKernel("/path/to/config.yaml")
+kernelObj, kernelError := gkernel.NewKernel("/path/to/config")
 if nil != kernelError {
     panic(kernelError)
 }
@@ -174,6 +174,44 @@ Where:
 * `<path to application Config file>` - path to application's configuration file
 * `<templates_path>` - value application's configuration file
 * `<templateName>` - template's name from `NewViewResponse(templateName string)` factory method
+
+###### Access to Gkernels html/template object and registration of custom template functions
+To work with templates Gkernel uses [html/template](https://golang.org/pkg/html/template/) library.
+Templates parsing happens during templates during application startup after Gkernel's `Run()` method call. 
+
+Sometimes you need access to template.Template object (to register custom template functions or make other configuration).
+Gkernel provides appropriate method `GetTemplates()`. 
+
+Example of custom template functions registration:
+```go
+kernelObj, kernelError := gkernel.NewKernel("/path/to/config")
+
+...
+
+kernelObj.GetTemplates().Funcs(template.FuncMap{
+    "sequence": func(size int) []int {
+        sequence := make([]int, size)
+        for i := 0; i < size; i++ {
+            sequence[i] = i
+        }
+
+        return sequence
+    },
+    "addInt": func(a, b int) int {
+        return a + b
+    },
+    "subInt": func(a, b int) int {
+        return a - b
+    },
+})
+``` 
+After that you can use these functions in templates:
+```html
+{{range $i := sequence $pagination.TotalPages}}
+    {{$pageNum := addInt $i 1}}
+    <a href="{{$pagination.CurrentUrl}}?page={{$pageNum}}">{{$pageNum}}</a>
+{{end}}
+```
 
 &nbsp;
 ##### JsonResponse

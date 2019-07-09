@@ -17,9 +17,16 @@ This events are dispatched by framework.
 
 ### Configuration
 
-Gkernel uses yaml file to describe application configuration. Path to this file should be passed to Kernel constructor.
-Config file describes application parameters (like port to listen on, environment etc.), routes, services and event listeners.
+Gkernel uses yaml files to describe application configuration. Path to folder, containing config files, should be passed to Kernel constructor.
+Config files describe application parameters (like port to listen on, environment etc.), routes, services and event listeners.
 
+Under the hood to work with config files Gkernel uses [viper](https://github.com/spf13/viper) library. Viper can read 
+**json**, **toml**, **yaml**, **yml**, **properties**, **props**, **prop**, **hcl** files, so, in fact, any of that file
+types can be used as configuration files for Gkernel. But we suggests to use **yaml**.
+
+While reading config path (directory) Gkernel reads any allowed (that Viper can read) file from that directory and treats
+it like configuration file. Therefore it is recommended to store config files in separate folder and not mix config files with other files to avoid erroneous read
+of non-config file.  
 
 ### Request lifecycle
 
