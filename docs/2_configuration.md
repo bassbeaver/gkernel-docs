@@ -1,5 +1,5 @@
-Gkernel uses yaml file to describe application configuration. Path to this file should be passed to Kernel constructor.
-Config file describes application parameters (like port to listen on, environment etc.), routes, services and event listeners.
+Gkernel uses yaml files to describe application configuration. Path to folder containing config files should be passed to Kernel constructor.
+Config files describe application parameters (like port to listen on, environment etc.), routes, services and event listeners.
 
 Simple example:
 ```go
@@ -179,7 +179,7 @@ This block is simple key-value storage for some application parameters that can 
 
 For example, you need some timeout value for some process and you want this timeout be 30 sec on **prod** server and 60 sec on **dev** server.
 You need to pass this value to corresponding service (in `services` configuration block).
-In such case you can define `process_timeout` parameter, use it by name as service-factory parameter in `services` section and it's will be stored in `parameters` section.
+In such case you can define `timeout_value` parameter, use it by name as service-factory parameter in `services` section and it's will be stored in `parameters` section.
 So for different servers you should only change `parameters` section of config file.
 
 Example part of config file for **prod** server:

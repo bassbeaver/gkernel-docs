@@ -52,6 +52,10 @@ Application level events has next methods:
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetContainer() *gioc.Container` - returns DI Container object used by Application.
 
+Application level events has next attributes:
+
+* `Errors *[]error` - slice of errors occurred during application shutdown process 
+
 &nbsp;
 
 ##### Request level events
@@ -69,6 +73,7 @@ Can be used to read user's session from the storage, for authentification & auth
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
 * `RequestContextAppend(key, val interface{})` - appends provided val object to Request's context
+* `GetResponseWriter() http.ResponseWriter` - returns ResponseWriter object associated with current Request 
 * `GetResponse() response.Response` - gets Response object provided to this Event. Initially `RequestReceived` Event has no Response (method returns `nil`)
 * `SetResponse(responseObj response.Response)` - stops Event's propagation and sends provided Response to user. 
 
@@ -82,6 +87,7 @@ Is being dispatched after Controller has processed Request. Contains Response ob
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
 * `RequestContextAppend(key, val interface{})` - appends provided val object to Request's context
+* `GetResponseWriter() http.ResponseWriter` - returns ResponseWriter object associated with current Request
 * `GetResponse() response.Response` - gets Response object provided to this Event. Initially this will be Response returned by Controller
 * `SetResponse(responseObj response.Response)` - sets Response object. Notice: unlike `RequestReceived.SetResponse()` this method does not stop Event's propagation
 
@@ -94,6 +100,8 @@ Is being dispatched after `RequestProcessed` Event was processed. Can modify Res
 * `StopPropagation()` - to stop Event's propagation inside Listeners Chain	
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
+* `RequestContextAppend(key, val interface{})` - appends provided val object to Request's context
+* `GetResponseWriter() http.ResponseWriter` - returns ResponseWriter object associated with current Request
 * `GetResponse() response.Response` - gets Response object
 
 &nbsp;
@@ -118,6 +126,7 @@ Gkernel automatically recovers that panic, creates `RuntimeError` object to repr
 * `IsPropagationStopped() bool` - returns if propagation of Event was stopped
 * `GetRequest() *http.Request` - returns Request object
 * `RequestContextAppend(key, val interface{})` - appends provided val object to Request's context
+* `GetResponseWriter() http.ResponseWriter` - returns ResponseWriter object associated with current Request
 * `GetResponse() response.Response` - gets Response object provided to this Event. Initially `RuntimeError` Event has no Response (method returns `nil`)
 * `SetResponse(responseObj response.Response)` - stops Event's propagation and sends provided Response to user. 
 * `GetError() *kernelError.RuntimeError` - returns `RuntimeError` object that represents recovered panic
