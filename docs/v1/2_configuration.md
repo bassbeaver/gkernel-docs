@@ -1,17 +1,17 @@
-Gkernel uses yaml file to describe application configuration. Path to this file should be passed to Kernel constructor.
-Config file describes application parameters (like port to listen on, environment etc.), routes, services and event listeners.
+Gkernel uses yaml files to describe application configuration. Path to folder containing this files should be passed to Kernel constructor.
+Config files describe application parameters (like port to listen on, environment etc.), web routes, CLI commands, services and event listeners.
 
 Simple example:
 ```go
 import (
-	"github.com/bassbeaver/gkernel"
+	webKernel "github.com/bassbeaver/gkernel/web"
 )
 
 ...
 
 var configPath string
 configPath = "/path/to/config"
-kernelObj, kernelError := gkernel.NewKernel(configPath)
+kernelObj, kernelError := webKernel.NewKernel(configPath)
 ``` 
 
 It's a good idea to get this path as program argument. This approach is used in [gkernel skeleton application](https://github.com/bassbeaver/gkernel-skeleton):
@@ -19,8 +19,8 @@ It's a good idea to get this path as program argument. This approach is used in 
 import (
 	"flag"
 	"fmt"
-	"github.com/bassbeaver/gkernel"
-	kernelResponse "github.com/bassbeaver/gkernel/response"
+	webKernel "github.com/bassbeaver/gkernel/web"
+	kernelResponse "github.com/bassbeaver/gkernel/web/response"
 	"net/http"
 	"net/http/pprof"
 	"os"
@@ -49,7 +49,7 @@ if "" == *configPathFlag {
     configPath = *configPathFlag
 }
 
-kernelObj, kernelError := gkernel.NewKernel(configPath)
+kernelObj, kernelError := webKernel.NewKernel(configPath)
 if nil != kernelError {
     panic(kernelError)
 }
@@ -66,22 +66,23 @@ For example, if you build you app binary to `/etc/gkernel-app` and put your conf
 Configuration file has next root keys:
 
 * http_port
-* app_env &nbsp;
-* templates_path &nbsp;
-* services &nbsp;
-* routing &nbsp;
-* event_listeners &nbsp;
-* parameters &nbsp;
+* app_env
+* templates_path
+* services
+* routing
+* cli
+* event_listeners
+* parameters
 
 #### http_port
-Determines on what port application would be listening for requests.
+For web application (that uses web Kernel) this key determines on what port application would be listening for requests.
  
 #### app_env
 Determines current application's environment. This is just a flag thet signals to application's code in what regime it is running.
 Typically application can have two environments: `dev` and `prod`, but you are free to use as many environments as you want.
 
 #### templates_path
-Gkernel uses go [html/template](https://golang.org/pkg/html/template/) package as a template engine to render pages.
+Web Kernel of Gkernel uses go [html/template](https://golang.org/pkg/html/template/) package as a template engine to render pages.
 This templates are parsed during Kernel startup and `templates_path` key determines where Kernel should search for your templates.
 
 #### services
@@ -93,24 +94,24 @@ Example:
 ```yaml
 services:
 
-  Sessions:
-    arguments: ["sid", "@SessionsRedisConnection"]
+  SessionsMiddleware:
+    arguments: ["sid", "@RedisConnection"]
 ```
-Where `Sessions` are service alias and 
+Where `SessionsMiddleware` are service alias and 
 ```yaml
-arguments: ["sid", "@SessionsRedisConnection"]
+arguments: ["sid", "@RedisConnection"]
 ``` 
-indicates that `Sessions` service factory requires two arguments and
-first argument is just simple string with value `sid` and second argument should be a pointer to the `SessionsRedisConnection` 
-service (this `SessionsRedisConnection` service have also to be described in config file).
+indicates that `SessionsMiddleware` service factory requires two arguments and
+first argument is just simple string with value `sid` and second argument should be a pointer to the `RedisConnection` 
+service (this `RedisConnection` service have also to be described in config file).
 
 I want to bring your attention to that config file **only describes** services and service-factories arguments, and you have to register
 that factories in your application code.
 
-For more information adout services and DI container see "Services and DI container" section.
+For more information about services and DI container see "Services and DI container" section.
 
 #### routing
-This block describes routes provided by application. A route is a map from a URL path to the program logic, 
+This block describes web routes provided by application. A route is a map from a URL path to the program logic, 
 designed to process requests to that URL (we call that logic - Controller).
 
 Routing block has next sub-blocs:
@@ -131,7 +132,8 @@ Where:
 * `IndexController:privatePage` - route name
 * `url` - url or the route, url can contain parameters: `"/some-page/:param1"`
 * `methods` - list of HTTP methods allowed for this route
-* `controller` - controller to process request matched to this route. `IndexController` is the service alias in DI container and `PrivatePage` is the name of method to be called to process request.
+* `controller` - controller to process request matched to this route. `IndexController` is the service alias in DI container and `PrivatePage`
+  is the method name of `IndexController` service to be called to process request.
 * `event_listeners` - list of request-level event listeners for this route, for more information see "Events and listeners" section.
 
 Whole `routing` block can look like:
@@ -153,11 +155,11 @@ routing:
         - {event: kernelEvent.RequestReceived, listener: "AuthService:RedirectIfAuthenticated", priority: 41}
 
   event_listeners:
-    - {event: kernelEvent.RequestReceived, listener: "RequestLoggerSetter:CreateLogger", priority: 15}
+    - {event: kernelEvent.RequestReceived, listener: "RequestLoggerSetter:SetLoggerToRequestContext", priority: 15}
     - {event: kernelEvent.RequestTermination, listener: "RequestLoggerSetter:CloseLogger", priority: 100}
 ```
-We can see here two routes `IndexController:index` and `IndexController:loginPage`. Routes have two common event listeners (`RequestLoggerSetter:CreateLogger`, `RequestLoggerSetter:CloseLogger`),
-this listeners will run at every request.
+We can see here two routes `IndexController:index` and `IndexController:loginPage`. Routes have two common event listeners
+(`RequestLoggerSetter:SetLoggerToRequestContext`, `RequestLoggerSetter:CloseLogger`), these listeners will run at every request.
 
 Also `IndexController:loginPage` has `AuthService:RedirectIfAuthenticated` listener, this listener will run only during `GET /login` request.
 
@@ -167,8 +169,8 @@ Also `IndexController:loginPage` has `AuthService:RedirectIfAuthenticated` liste
 This block describes application level event listeners. Can look like:
 ```yaml
 event_listeners:
-  - {event: kernelEvent.ApplicationLaunched, listener: "SessionsMiddleware:InitRedisConnection", priority: 10}
-  - {event: kernelEvent.ApplicationTermination, listener: "SessionsMiddleware:CloseRedisConnection", priority: 10}
+  - {event: kernelEvent.ApplicationLaunched, listener: "RedisConnectionMiddleware:InitRedisConnection", priority: 10}
+  - {event: kernelEvent.ApplicationTermination, listener: "RedisConnectionMiddleware:CloseRedisConnection", priority: 10}
 ```
 For more information see "Events and listeners" section.
 

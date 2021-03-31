@@ -1,13 +1,22 @@
 site_name: Gkernel framework
 repo_url: https://github.com/bassbeaver/gkernel
 nav:
-  - Docs:
-    - Introduction: 'index.md'
-    - Main concepts: '1_main-concepts.md'
-    - Configuration: '2_configuration.md'
-    - Services and DI container: '3_services_and_di_container.md'
-    - Request and Response: '4_request_and_response.md'
-    - Controllers: '5_routing_and_controllers.md'
-    - Events and Listeners: '6_events_and_listeners.md'
+  - Introduction: 'index.md'
+  - v0.4:
+    - Main concepts: 'v0.4/1_main-concepts.md'
+    - Configuration: 'v0.4/2_configuration.md'
+    - Services and DI container: 'v0.4/3_services_and_di_container.md'
+    - Request and Response: 'v0.4/4_request_and_response.md'
+    - Controllers: 'v0.4/5_routing_and_controllers.md'
+    - Events and Listeners: 'v0.4/6_events_and_listeners.md'
+
+  - v1:
+    - Introduction: 'v1/1_main-concepts.md'
+    - Configuration: 'v1/2_configuration.md'
+
   - About: 'about.md'
-theme: readthedocs
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
