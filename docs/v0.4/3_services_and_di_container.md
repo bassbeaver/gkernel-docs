@@ -3,7 +3,7 @@ DI container is used to create entities during application run.
 Let's call that entities as **Service**. 
 
 To create some Service you have to know what dependencies that service has, and how to build that new Service.
-Dependency is some object (scalar value, pointer to other service etc.) that is required for Service to operate.
+*"Dependency"* - is some object (scalar value, pointer to other service etc.) that is required for Service to operate.
 *"How to build"* - is set of operations needed to create and configure Service.
 
 It's good approach to encapsulate knowledge *"how to build"* in object called **Factory** 

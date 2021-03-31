@@ -33,7 +33,7 @@ Where declared parameter is `:parameterValue`.
 Captured parameters live in Request object. To obtain captured parameter inside controller you have to:
 ```go
 import (
-	"github.com/bassbeaver/gkernel/response"
+	kernelResponse "github.com/bassbeaver/gkernel/response"
 	"net/http"
 )
 
@@ -54,11 +54,11 @@ Basically Controller is function that receive request object and have to return 
 Controller function should have next signature: 
 ```go
 import (
-	"github.com/bassbeaver/gkernel/response"
+	kernelResponse "github.com/bassbeaver/gkernel/response"
 	"net/http"
 )
 
-func(*http.Request) response.Response
+func(*http.Request) kernelResponse.Response
 ``` 
 
 Gkernel's approach to Controllers is to register Service where some methods have appropriate (Controller's) signature. 

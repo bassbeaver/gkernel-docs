@@ -1,4 +1,4 @@
-Gkernel uses yaml files to describe application configuration. Path to folder containing config files should be passed to Kernel constructor.
+Gkernel uses yaml files to describe application configuration. Path to folder containing these files should be passed to Kernel constructor.
 Config files describe application parameters (like port to listen on, environment etc.), routes, services and event listeners.
 
 Simple example:
@@ -107,7 +107,7 @@ service (this `SessionsRedisConnection` service have also to be described in con
 I want to bring your attention to that config file **only describes** services and service-factories arguments, and you have to register
 that factories in your application code.
 
-For more information adout services and DI container see "Services and DI container" section.
+For more information about services and DI container see "Services and DI container" section.
 
 #### routing
 This block describes routes provided by application. A route is a map from a URL path to the program logic, 

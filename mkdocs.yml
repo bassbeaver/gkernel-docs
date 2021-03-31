@@ -1,13 +1,33 @@
 site_name: Gkernel framework
 repo_url: https://github.com/bassbeaver/gkernel
 nav:
-  - Docs:
-    - Introduction: 'index.md'
-    - Main concepts: '1_main-concepts.md'
-    - Configuration: '2_configuration.md'
-    - Services and DI container: '3_services_and_di_container.md'
-    - Request and Response: '4_request_and_response.md'
-    - Controllers: '5_routing_and_controllers.md'
-    - Events and Listeners: '6_events_and_listeners.md'
+  - Introduction: 'index.md'
+  - v0.4:
+    - Main concepts: 'v0.4/1_main-concepts.md'
+    - Configuration: 'v0.4/2_configuration.md'
+    - Services and DI container: 'v0.4/3_services_and_di_container.md'
+    - Request and Response: 'v0.4/4_request_and_response.md'
+    - Routing and Controllers: 'v0.4/5_routing_and_controllers.md'
+    - Events and Listeners: 'v0.4/6_events_and_listeners.md'
+
+  - v1:
+    - Main concepts: 'v1/1_main-concepts.md'
+    - Configuration: 'v1/2_configuration.md'
+    - Services and DI container: 'v1/3_services_and_di_container.md'
+    - Events and Listeners: 'v1/4_events_and_listeners.md'
+    - Web:
+      - Request lifecycle: 'v1/5-1_web_request_lifecycle.md'
+      - Request and Response: 'v1/5-2_web_request_and_response.md'
+      - Routing and Controllers: 'v1/5-3_web_routing_and_controllers.md'
+      - Events and Listeners: 'v1/5-4_web_events_and_listeners.md'
+    - CLI:
+      - Command lifecycle: 'v1/6-1_cli_command_lifecycle.md'
+      - Command and Controllers: 'v1/6-2_cli_command_and_controller.md'
+      - Events and Listeners: 'v1/6-3_cli_events_and_listeners.md'
+
   - About: 'about.md'
-theme: readthedocs
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
