@@ -33,7 +33,7 @@ Where declared parameter is `:parameterValue`.
 Captured parameters live in Request object. To obtain captured parameter inside controller you have to:
 ```go
 import (
-	kernelResponse "github.com/bassbeaver/gkernel/response"
+	kernelResponse "github.com/bassbeaver/gkernel/web/response"
 	"net/http"
 )
 
@@ -54,7 +54,7 @@ Basically Controller is function that receive request object and have to return 
 Controller function should have next signature: 
 ```go
 import (
-	kernelResponse "github.com/bassbeaver/gkernel/response"
+	kernelResponse "github.com/bassbeaver/gkernel/web/response"
 	"net/http"
 )
 

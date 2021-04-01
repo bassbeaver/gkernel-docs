@@ -7,12 +7,18 @@ nav:
     - Configuration: 'v0.4/2_configuration.md'
     - Services and DI container: 'v0.4/3_services_and_di_container.md'
     - Request and Response: 'v0.4/4_request_and_response.md'
-    - Controllers: 'v0.4/5_routing_and_controllers.md'
+    - Routing and Controllers: 'v0.4/5_routing_and_controllers.md'
     - Events and Listeners: 'v0.4/6_events_and_listeners.md'
 
   - v1:
-    - Introduction: 'v1/1_main-concepts.md'
+    - Main concepts: 'v1/1_main-concepts.md'
     - Configuration: 'v1/2_configuration.md'
+    - Services and DI container: 'v1/3_services_and_di_container.md'
+    - Web:
+      - Request lifecycle: 'v1/4-1_web_request_lifecycle.md'
+      - Request and Response: 'v1/4-2_request_and_response.md'
+      - Routing and Controllers: 'v1/4-3_routing_and_controllers.md'
+    - CLI: 'v1/4-0_cli.md'
 
   - About: 'about.md'
 theme:

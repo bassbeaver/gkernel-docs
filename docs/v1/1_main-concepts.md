@@ -18,6 +18,17 @@ Framework determines next main entities for request processing:
 * CLI Command - represents CLI command to be executed.
 
 
+### Kernel
+
+Gkernel framework have two kernel implementation - for web and for CLI environments.
+
+`github.com/bassbeaver/gkernel/web`
+package contains kernel and other entities for web environment.  
+
+`github.com/bassbeaver/gkernel/cli`
+package contains kernel and other entities for CLI environment.
+
+
 ### Configuration
 
 Gkernel uses yaml files to describe application configuration. Path to folder, containing config files, should be passed to Kernel constructor.

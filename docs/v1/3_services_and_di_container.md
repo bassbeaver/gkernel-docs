@@ -77,7 +77,7 @@ Next, let's write Service and Service Factory code:
 ```go
 import (
 	"fmt"
-	"github.com/bassbeaver/gkernel"
+	webKernel "github.com/bassbeaver/gkernel/web"
 	"gkernel-skeleton/service/auth"
 )
 
@@ -96,7 +96,7 @@ func newUserProvider() *UserProvider {
 	return &UserProvider{}
 }
 
-func RegisterUserProvider(kernelObj *gkernel.Kernel) {
+func RegisterUserProvider(kernelObj *webKernel.Kernel) {
 	err := kernelObj.RegisterService(UserProviderMiddlewareServiceAlias, newUserProvider, true)
 	if nil != err {
 		panic(fmt.Sprintf("failed to register %s service, error: %s", UserProviderMiddlewareServiceAlias, err.Error()))
@@ -118,7 +118,7 @@ func newAuthService(userLoader *UserProvider, loginPageUrl, fallbackUrl string) 
 	}
 }
 
-func RegisterAuthService(kernelObj *gkernel.Kernel) {
+func RegisterAuthService(kernelObj *webKernel.Kernel) {
 	err := kernelObj.RegisterService(AuthServiceAlias, newAuthService, true)
 	if nil != err {
 		panic(fmt.Sprintf("failed to register %s service, error: %s", AuthServiceAlias, err.Error()))
@@ -129,7 +129,7 @@ func RegisterAuthService(kernelObj *gkernel.Kernel) {
 Finally, lets register Services in Container:
 ```go
 
-kernelObj, kernelError := gkernel.NewKernel("/path/to/config")
+kernelObj, kernelError := webKernel.NewKernel("/path/to/config")
 if nil != kernelError {
     panic(kernelError)
 }
@@ -138,10 +138,10 @@ RegisterAuthService(kernelObj)
 RegisterUserProvider(kernelObj)
 ```
 
-After that, Container can create Services (on demand) and inside of created `AuthService` already created `UserProvider` will be available.
+After that, Container can create Services (on demand) and inside created `AuthService` already created `UserProvider` will be available.
 
 You can ask me *"and what about Service obtainment?"*. In real application most part of time you will be working with
-Controllers and Event Listeners and both of them should be registered in Container as Services (if you want have good application architecture)
+Controllers and Event Listeners and both of them should be registered in Container as Services (if you want to have good application architecture)
 and in that case you do not need explicit Service obtainment, Gkernel and Container will do it for you.
 
 But, if for some reason you really want to get some Service explicitly, you can use: 
@@ -156,4 +156,4 @@ Answer is: you can register services in any order
 because no services are created during registration process. Services are created by Container only when they are really needed.
 
 
-For more examples you can see [Gkernel skeleton application](https://github.com/bassbeaver/gkernel-skeleton/blob/master/main.go#L63).
+For more examples you can see [Gkernel skeleton application](https://github.com/bassbeaver/gkernel-skeleton/blob/master/web/main.go#L52).
