@@ -50,7 +50,7 @@ func (c *IndexController) PageWithParam(request *http.Request) kernelResponse.Re
 &nbsp;
 #### Controller
 
-Basically Controller is function that receive request object and have to return response object.
+Basically Controller is function that receives request object and have to return response object.
 Controller function should have next signature: 
 ```go
 import (

@@ -114,7 +114,7 @@ For more information about services and DI container see "Services and DI contai
 This block describes web routes provided by application. A route is a map from a URL path to the program logic, 
 designed to process requests to that URL (we call that logic - Controller).
 
-Routing block has next sub-blocs:
+Routing block has next sub-blocks:
 * routes - list of available routes
 * event_listeners - request-level event listeners common for all routes
 
@@ -163,7 +163,33 @@ We can see here two routes `IndexController:index` and `IndexController:loginPag
 
 Also `IndexController:loginPage` has `AuthService:RedirectIfAuthenticated` listener, this listener will run only during `GET /login` request.
 
- 
+
+### cli
+
+This block describes console commands provided by application. A command is a map from CLI arguments to the program logic,
+designed to process such CLI requests.
+
+CLI block has next sub-blocks:
+* commands - list of available commands
+
+Command description looks like:
+```yaml
+CliController:command1:
+  name: command1
+  controller: "CliController:Command1"
+  help: "first cli command"
+```
+
+Where:
+
+* `CliController:command1` - command alias (not used by Gkernel)
+* `name` - name of command. Gkernel search this name in CLI arguments passed to program
+* `controller` - controller to process command. `CliController` is the service alias in DI container and `Command1`
+  is the method name of `CliController` service to be called to process command.
+* `help` - string for full command description shown when running the command with the `--help` option.
+  Also, `help` strings of all commands CLI Kernel returns by `Kernel.Help()` method.
+
+
 #### event_listeners
 
 This block describes application level event listeners. Can look like:
