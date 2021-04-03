@@ -1,5 +1,5 @@
 Gkernel uses yaml files to describe application configuration. Path to folder containing this files should be passed to Kernel constructor.
-Config files describe application parameters (like port to listen on, environment etc.), web routes, CLI commands, services and event listeners.
+Config files describe application parameters (like port to listen on), web routes, CLI commands, services and event listeners.
 
 Simple example:
 ```go
@@ -65,25 +65,11 @@ For example, if you build you app binary to `/etc/gkernel-app` and put your conf
 ### Configuration file overview
 Configuration file has next root keys:
 
-* http_port
-* app_env
-* templates_path
 * services
-* routing
+* web
 * cli
 * event_listeners
 * parameters
-
-#### http_port
-For web application (that uses web Kernel) this key determines on what port application would be listening for requests.
- 
-#### app_env
-Determines current application's environment. This is just a flag thet signals to application's code in what regime it is running.
-Typically application can have two environments: `dev` and `prod`, but you are free to use as many environments as you want.
-
-#### templates_path
-Web Kernel of Gkernel uses go [html/template](https://golang.org/pkg/html/template/) package as a template engine to render pages.
-This templates are parsed during Kernel startup and `templates_path` key determines where Kernel should search for your templates.
 
 #### services
 `services` block describes all services in the application. Reading this block Kernel learns what services should be registered in
@@ -110,8 +96,22 @@ that factories in your application code.
 
 For more information about services and DI container see "Services and DI container" section.
 
-#### routing
-This block describes web routes provided by application. A route is a map from a URL path to the program logic, 
+#### web
+This block describes all configuration related to web part of application (and used by web Kernel).
+
+Web block has next keys:
+* **http_port**  
+  Determines on what port application would be listening for HTTP requests.
+* **templates_path**  
+  Web Kernel of Gkernel uses go [html/template](https://golang.org/pkg/html/template/) package as a template engine to render pages.
+  This templates are parsed during Kernel startup and `web.templates_path` key determines where Kernel should search for your templates.
+* **shutdown_timeout**  
+  Graceful shutdown timeout for http server in milliseconds, if not set default value of 500 will be used.
+* **routing**  
+  Routing key describes routes provided by application. More detailed description will be further.
+
+###### web.routing
+This sub block describes web routes provided by application. A route is a map from a URL path to the program logic, 
 designed to process requests to that URL (we call that logic - Controller).
 
 Routing block has next sub-blocks:
@@ -136,27 +136,32 @@ Where:
   is the method name of `IndexController` service to be called to process request.
 * `event_listeners` - list of request-level event listeners for this route, for more information see "Events and listeners" section.
 
-Whole `routing` block can look like:
+Whole `web` block can look like:
 ```yaml
-routing:
+web:
+  http_port: 8081
+  templates_path: "web/templates"
+  shutdown_timeout: 5000
 
-  routes:
-
-    IndexController:index:
-      url: "/"
-      methods: ["GET"]
-      controller: "IndexController:Index"
-
-    IndexController:loginPage:
-      url: "/login"
-      methods: ["GET"]
-      controller: "IndexController:LoginPage"
-      event_listeners:
-        - {event: kernelEvent.RequestReceived, listener: "AuthService:RedirectIfAuthenticated", priority: 41}
-
-  event_listeners:
-    - {event: kernelEvent.RequestReceived, listener: "RequestLoggerSetter:SetLoggerToRequestContext", priority: 15}
-    - {event: kernelEvent.RequestTermination, listener: "RequestLoggerSetter:CloseLogger", priority: 100}
+  routing:
+  
+    routes:
+  
+      IndexController:index:
+        url: "/"
+        methods: ["GET"]
+        controller: "IndexController:Index"
+  
+      IndexController:loginPage:
+        url: "/login"
+        methods: ["GET"]
+        controller: "IndexController:LoginPage"
+        event_listeners:
+          - {event: kernelEvent.RequestReceived, listener: "AuthService:RedirectIfAuthenticated", priority: 41}
+  
+    event_listeners:
+      - {event: kernelEvent.RequestReceived, listener: "RequestLoggerSetter:SetLoggerToRequestContext", priority: 15}
+      - {event: kernelEvent.RequestTermination, listener: "RequestLoggerSetter:CloseLogger", priority: 100}
 ```
 We can see here two routes `IndexController:index` and `IndexController:loginPage`. Routes have two common event listeners
 (`RequestLoggerSetter:SetLoggerToRequestContext`, `RequestLoggerSetter:CloseLogger`), these listeners will run at every request.
@@ -187,8 +192,19 @@ Where:
 * `controller` - controller to process command. `CliController` is the service alias in DI container and `Command1`
   is the method name of `CliController` service to be called to process command.
 * `help` - string for full command description shown when running the command with the `--help` option.
-  Also, `help` strings of all commands CLI Kernel returns by `Kernel.Help()` method.
+  Also, `help` strings of all commands CLI Kernel returns by `Kernel.GetHelp()` or `Kernel.FormatHelp()` methods.
 
+Whole `cli` block can look like:
+```yaml
+cli:
+
+  commands:
+
+    CliController:command1:
+      name: command1
+      controller: "CliController:Command1"
+      help: "first cli command"
+```
 
 #### event_listeners
 
@@ -216,7 +232,7 @@ services:
 
   SomeService:
     arguments: ["#timeout_value"]
-    
+
 parameters:
   timeout_value: 30
 ```  
@@ -227,7 +243,7 @@ services:
 
   SomeService:
     arguments: ["#timeout_value"]
-    
+
 parameters:
   timeout_value: 60
 ```  
