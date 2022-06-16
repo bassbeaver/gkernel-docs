@@ -20,6 +20,7 @@ nav:
       - Request and Response: 'v1/5-2_web_request_and_response.md'
       - Routing and Controllers: 'v1/5-3_web_routing_and_controllers.md'
       - Events and Listeners: 'v1/5-4_web_events_and_listeners.md'
+      - Timeouts: 'v1/5-5_web_timeouts.md'
     - CLI:
       - Command lifecycle: 'v1/6-1_cli_command_lifecycle.md'
       - Command and Controllers: 'v1/6-2_cli_command_and_controller.md'
