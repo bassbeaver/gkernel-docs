@@ -14,7 +14,7 @@
     
     
       
-        <title>Routing and Controllers - Gkernel framework</title>
+        <title>Timeouts - Gkernel framework</title>
       
     
     
@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#routing" class="md-skip">
+        <a href="#http-server-timeouts" class="md-skip">
           Skip to content
         </a>
       
@@ -89,7 +89,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Routing and Controllers
+              Timeouts
             
           </span>
         </div>
@@ -499,65 +499,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Routing and Controllers
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../5-3_web_routing_and_controllers/" class="md-nav__link">
         Routing and Controllers
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#routing" class="md-nav__link">
-    Routing
-  </a>
-  
-    <nav class="md-nav" aria-label="Routing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#route-url-parameters" class="md-nav__link">
-    Route URL parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#controller" class="md-nav__link">
-    Controller
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -577,11 +523,59 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../5-5_web_timeouts/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Timeouts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Timeouts
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#http-server-timeouts" class="md-nav__link">
+    HTTP server timeouts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-timeouts" class="md-nav__link">
+    Route timeouts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-route-timeouts" class="md-nav__link">
+    Common route timeouts
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -701,28 +695,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#routing" class="md-nav__link">
-    Routing
+  <a href="#http-server-timeouts" class="md-nav__link">
+    HTTP server timeouts
   </a>
-  
-    <nav class="md-nav" aria-label="Routing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#route-url-parameters" class="md-nav__link">
-    Route URL parameters
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#controller" class="md-nav__link">
-    Controller
+  <a href="#route-timeouts" class="md-nav__link">
+    Route timeouts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-route-timeouts" class="md-nav__link">
+    Common route timeouts
   </a>
   
 </li>
@@ -739,63 +727,78 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/bassbeaver/gkernel/edit/master/docs/v1/5-3_web_routing_and_controllers.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/bassbeaver/gkernel/edit/master/docs/v1/5-5_web_timeouts.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  <h1>Routing and Controllers</h1>
+                  <h1>Timeouts</h1>
                 
-                <h4 id="routing">Routing</h4>
-<p>Route determines connection between URL and Controller, designed to process requests to that URL.</p>
-<p>To represent Route in code, Gkernel provides <code>Route</code> type. <code>Route</code> has next fields:</p>
-<ul>
-<li>Name, <code>string</code> - name of the route</li>
-<li>Methods, <code>[]string</code> - array of HTTP method names. Route will only process requests made using that methods.</li>
-<li>Url, <code>string</code></li>
-<li>Controller, <code>Controller</code> - Controller to process request</li>
-</ul>
-<p>Main way to create routes in Gkernel application is to describe routes in Configuration file. This way is described in 
-<strong>Configuration</strong> section of this documentation.</p>
-<p>But also, you can register routes within the code. Gkernel provides appropriate method for this:</p>
-<pre><code>func (k *Kernel) RegisterRoute(route *Route) *Kernel
+                <p>Gkernel framework provides opportunities to configure HTTP server timeouts (ReadHeaderTimeout, ReadTimeout, WriteTimeout, IdleTimeout)
+and also to configure per-route timeouts.</p>
+<h6 id="http-server-timeouts">HTTP server timeouts</h6>
+<p>HTTP server configuration is done by next config expressions:</p>
+<pre><code class="language-yaml">web:
+
+  server_read_header_timeout: 2500
+  server_read_timeout: 7500
+  server_write_timeout: 15000
+  server_idle_timeout: 7500
 </code></pre>
-<p>&nbsp;</p>
-<h6 id="route-url-parameters">Route URL parameters</h6>
-<p>Sometimes you will need to capture segments of the URI within your route. To achieve this you have to declare rote with parameter in URL.
-Configuration file example for this case:</p>
-<pre><code class="language-yaml">IndexController:pageWithParam:
-  url: &quot;/page-with-param/:parameterValue&quot;
-  methods: [&quot;GET&quot;]
-  controller: &quot;IndexController:PageWithParam&quot;
+<p>Timeout values are in milliseconds</p>
+<h6 id="route-timeouts">Route timeouts</h6>
+<p>As you know, server timeouts (ReadHeaderTimeout, ReadTimeout, WriteTimeout, IdleTimeout) mostly protects you from slow or malicious client,
+but server timeouts can not help you against your own slow code. If you have <code>server_write_timeout</code> is set to 15 seconds but your controller
+takes it up to 30 seconds for request processing client will wait 30 seconds and will get connection closed only when controller ends with processing.
+This is how server timeouts working.</p>
+<p>For time limiting of request processing we have to use route timeouts. When perroute timeout expires Gkernel framework stops
+waiting for request processing result and send timeout response to client.</p>
+<p>To configure route timeout next config expression is used: </p>
+<pre><code class="language-yaml">web:
+  routing:
+    routes:
+      RouteName:
+        timeout:
+          duration: 10000
+          handler: &quot;TimeoutHandler:PerformLoginHandleTimeout&quot;
 </code></pre>
-<p>Where declared parameter is <code>:parameterValue</code>.</p>
-<p>Captured parameters live in Request object. To obtain captured parameter inside controller you have to:</p>
+<p>Where <code>timeout.duration</code> is timeout in milliseconds and <code>handler</code> is handler function used to return timeout response.
+Basically timeout handler is function with signature:</p>
 <pre><code class="language-go">import (
     kernelResponse &quot;github.com/bassbeaver/gkernel/web/response&quot;
-    &quot;net/http&quot;
 )
 
-func (c *IndexController) PageWithParam(request *http.Request) kernelResponse.Response {
-    ...
-
-    urlParam := request.URL.Query().Get(&quot;:parameterValue&quot;)
-
-    ...
-}
+func() kernelResponse.Response
 </code></pre>
-<p>&nbsp;</p>
-<h4 id="controller">Controller</h4>
-<p>Basically Controller is function that receives request object and have to return response object.
-Controller function should have next signature: </p>
-<pre><code class="language-go">import (
-    kernelResponse &quot;github.com/bassbeaver/gkernel/web/response&quot;
-    &quot;net/http&quot;
-)
-
-func(*http.Request) kernelResponse.Response
+<p>Gkernel's approach to Timeout Handlers is to register Service where some method have appropriate (Timeout Handler's) signature.
+In configuration <code>RouteName.timeout.handler</code> clause value "TimeoutHandler:PerformLoginHandleTimeout" determines service (<code>TimeoutHandler</code>) and method of this service (<code>PerformLoginHandleTimeout</code>).</p>
+<p>Example of full config of route looks like: </p>
+<pre><code class="language-yaml">web:
+  routing:
+    routes:
+      IndexController:performLogin:
+        url: &quot;/login-perform&quot;
+        methods: [&quot;POST&quot;]
+        controller: &quot;IndexController:PerformLoginLogout&quot;
+        event_listeners:
+          - {event: kernelEvent.RequestReceived, listener: &quot;AuthService:RedirectIfAuthenticated&quot;, priority: 41}
+          - {event: kernelEvent.RequestReceived, listener: &quot;AuthService:AuthenticateByLogPass&quot;, priority: 42}
+        timeout:
+          duration: 10000
+          handler: &quot;TimeoutHandler:PerformLoginHandleTimeout&quot;
 </code></pre>
-<p>Gkernel's approach to Controllers is to register Service where some methods have appropriate (Controller's) signature. </p>
+<h6 id="common-route-timeouts">Common route timeouts</h6>
+<p>In section above we described how to set route timeout processing in route configuration but often it is not convenient to use
+if we want to use same timeout processing for multiple routes. For this case Gkernel framework provides common route timeout configuration.
+This common configuration applies to all routes which do not have "personal" configuration.
+Common route timeout config looks like:</p>
+<pre><code class="language-yaml">web:
+  routing:
+    timeout:
+      duration: 8000
+      handler: &quot;TimeoutHandler:HandleTimeout&quot;
+</code></pre>
+<p>Also, full example of timeouts configuration and usage you can see at <a href="https://github.com/bassbeaver/gkernel-skeleton">gkernel skeleton application</a>.</p>
                 
               
               
@@ -814,7 +817,7 @@ func(*http.Request) kernelResponse.Response
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../5-2_web_request_and_response/" class="md-footer__link md-footer__link--prev" rel="prev">
+        <a href="../5-4_web_events_and_listeners/" class="md-footer__link md-footer__link--prev" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -823,19 +826,19 @@ func(*http.Request) kernelResponse.Response
               <span class="md-footer__direction">
                 Previous
               </span>
-              Request and Response
+              Events and Listeners
             </div>
           </div>
         </a>
       
       
-        <a href="../5-4_web_events_and_listeners/" class="md-footer__link md-footer__link--next" rel="next">
+        <a href="../6-1_cli_command_lifecycle/" class="md-footer__link md-footer__link--next" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Events and Listeners
+              Command lifecycle
             </div>
           </div>
           <div class="md-footer__button md-icon">
